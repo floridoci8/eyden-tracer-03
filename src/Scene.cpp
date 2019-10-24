@@ -12,7 +12,6 @@ void CScene::ParseOBJ(const std::string& fileName)
 	std::shared_ptr<IShader> pShader = std::make_shared<CShaderEyelight>(RGB(1, 1, 1));
 	// --- PUT YOUR CODE HERE ---
 	/*Partial reference: https://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/ */
-	
 	std::vector<Vec3f> vertices;
 
 	// open file

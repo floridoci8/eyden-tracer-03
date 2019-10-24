@@ -19,6 +19,10 @@ BoundingBox.h
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/BoundingBox.h
 types.h
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/types.h
+ray.h
+/home/floridoci/Desktop/cg/eyden-tracer-03/src/ray.h
+limits
+-
 
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/CameraPerspective.h
 ICamera.h

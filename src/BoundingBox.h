@@ -1,7 +1,9 @@
 #pragma once
 
 #include "types.h"
-
+#include "ray.h"
+// needed for infinity
+#include <limits> 
 struct Ray;
 
 namespace {
@@ -22,7 +24,9 @@ namespace {
 class CBoundingBox
 {
 public:
-	CBoundingBox(void) = default;
+	CBoundingBox(void){
+		clear();
+	}
 	~CBoundingBox(void)= default;
 	
 	/**
@@ -32,6 +36,16 @@ public:
 	void clear(void)
 	{
 		// --- PUT YOUR CODE HERE ---
+		// here reset means m_min = infinity, m_max = -infinity
+		// m_min = infinity
+		m_min[0] = std::numeric_limits<float>::infinity();
+		m_min[1] = std::numeric_limits<float>::infinity();
+		m_min[2] = std::numeric_limits<float>::infinity();
+		
+		//m_max = -infinity
+		m_max[0] = -std::numeric_limits<float>::infinity();
+		m_max[1] = -std::numeric_limits<float>::infinity();
+		m_max[2] = -std::numeric_limits<float>::infinity();		
 	}
 	
 	/**
@@ -41,6 +55,9 @@ public:
 	void extend(Vec3f a)
 	{
 		// --- PUT YOUR CODE HERE ---
+		// use Min3f and Max3f from namespace
+		m_min = Min3f(a, m_min);
+		m_max = Max3f(a, m_max);
 	}
 	
 	/**
@@ -50,6 +67,8 @@ public:
 	void extend(const CBoundingBox& box)
 	{
 		// --- PUT YOUR CODE HERE ---
+		extend(box.m_min);
+		extend(box.m_max);
 	}
 	
 	/**
@@ -71,6 +90,44 @@ public:
 	void clip(const Ray& ray, float& t0, float& t1)
 	{
 		// --- PUT YOUR CODE HERE ---
+		// partial reference: https://tavianator.com/fast-branchless-raybounding-box-intersections/
+		float tfarMin = -std::numeric_limits<float>::infinity();
+		float tnearMax = std::numeric_limits<float>::infinity();
+	
+		if(ray.dir[0] != 0){
+			float txnear = (m_min[0] - ray.org[0]) / ray.dir[0];
+			float txfar = (m_max[0] - ray.org[0]) / ray.dir[0];
+
+			if(ray.dir[0] < 0)
+				std::swap(txnear, txfar);
+		}
+
+		if(ray.dir[1] != 0){
+			float tynear = (m_min[1] - ray.org[1]) / ray.dir[1];
+			float tyfar = (m_max[1] - ray.org[1]) / ray.dir[1];
+
+			if(ray.dir[1] < 0)
+				std::swap(tynear, tyfar);
+		}	
+
+		tnearMax = std::max(txnear, tynear);
+		tfarMin = std::min(txfar, tyfar);
+
+		if(ray.dir[2] != 0){
+			float tznear = (m_min[2] - ray.org[2]) / ray.dir[2];
+			float tzfar = (m_max[2] - ray.org[2]) / ray.dir[2];
+
+			if(ray.dir[2] < 0)
+				std::swap(tznear, tzfar);
+		}	
+
+		tnearMax = std::max(tnearMax, tznear);
+		tfarMin = std::min(tfarMin, tzfar);
+
+		if(tnearMax < tfarMin){
+			t0 = tnearMax;
+			t1 = tfarMin;
+		}
 	}
 	
 	
