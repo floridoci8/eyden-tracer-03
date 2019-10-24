@@ -96,6 +96,9 @@ public:
 	{
 		// --- PUT YOUR CODE HERE ---
 		// partial reference: https://tavianator.com/fast-branchless-raybounding-box-intersections/
+		/* We just find the minimum and maximum of tfar and tnear respectively
+		   as shown in the lecture
+		*/
 		float tfarMin = -std::numeric_limits<float>::infinity();
 		float tnearMax = std::numeric_limits<float>::infinity();
 		float txnear, tynear, tznear, txfar, tyfar, tzfar;
