@@ -73,6 +73,10 @@ ShaderEyelight.h
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/ShaderEyelight.h
 ShaderPhong.h
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/ShaderPhong.h
+PrimTriangle.h
+/home/floridoci/Desktop/cg/eyden-tracer-03/src/PrimTriangle.h
+fstream
+-
 
 /home/floridoci/Desktop/cg/eyden-tracer-03/src/Scene.h
 ILight.h

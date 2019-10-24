@@ -9,6 +9,7 @@ CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/ICamera.h
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/ILight.h
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/IShader.h
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/Prim.h
+CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/PrimTriangle.h
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/Scene.cpp
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/Scene.h
 CMakeFiles/eyden-tracer.dir/src/Scene.cpp.o: src/ShaderEyelight.h
