@@ -15,6 +15,7 @@ void CScene::ParseOBJ(const std::string& fileName)
 	
 	std::vector<Vec3f> vertices;
 
+	// open file
 	std::ifstream file;
 	file.open(fileName);
 	if(!file.is_open()){
@@ -22,18 +23,23 @@ void CScene::ParseOBJ(const std::string& fileName)
 		exit(1);
 	}
 
+	//read file
 	while(!file.eof()){
+		// read first character of each line
 		char lineHeader = file.get();
 
+		// read the vertex positions
 		if(lineHeader == 'v'){
 			Vec3f vertex;
 			file >> vertex[0] >> vertex[1] >> vertex[2];
 
+			// Scale by 100 to make cow bigger (default is barely visible)
 			vertex[0] *= 100;
 			vertex[1] *= 100;
 			vertex[2] *= 100;
 			vertices.push_back(vertex);
 
+		// read the triangles and add them to our PrimTriangles
 		}else if(lineHeader == 'f'){
 			unsigned int v[3];
 			file >> v[0] >> v[1] >> v[2];
@@ -43,6 +49,7 @@ void CScene::ParseOBJ(const std::string& fileName)
 			
 		}
 	}
+
 	file.close();
 
 	std::cout << "Finished Parsing" << std::endl;
