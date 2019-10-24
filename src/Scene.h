@@ -88,8 +88,12 @@ public:
 	 */
 	CBoundingBox CalcBounds(void)
 	{
-		CBoundingBox res;
+		CBoundingBox res, pbox;
 		// --- PUT YOUR CODE HERE ---
+		for(auto pPrim : m_vpPrims){
+			pbox = pPrim->calcBounds();
+			res.extend(pbox);
+		}
 		return res;
 	}
 	/**

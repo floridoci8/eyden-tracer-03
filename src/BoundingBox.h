@@ -25,6 +25,7 @@ class CBoundingBox
 {
 public:
 	CBoundingBox(void){
+		// set m_min = infinity, m_max = -infinity
 		clear();
 	}
 	~CBoundingBox(void)= default;
@@ -78,7 +79,11 @@ public:
 	bool overlaps(const CBoundingBox& box)
 	{
 		// --- PUT YOUR CODE HERE ---
-		return true;
+		bool o[3];
+		o[0] = m_min[0] <= box.m_max[0] && box.m_min[0] <= m_max[0];
+		o[1] = m_min[1] <= box.m_max[1] && box.m_min[1] <= m_max[1];
+		o[2] = m_min[2] <= box.m_max[2] && box.m_min[2] <= m_max[2];
+		return o[0] && o[1] && o[2];
 	}
 	
 	/**
@@ -94,6 +99,7 @@ public:
 		float tfarMin = -std::numeric_limits<float>::infinity();
 		float tnearMax = std::numeric_limits<float>::infinity();
 		float txnear, tynear, tznear, txfar, tyfar, tzfar;
+		
 		if(ray.dir[0] != 0){
 			txnear = (m_min[0] - ray.org[0]) / ray.dir[0];
 			txfar = (m_max[0] - ray.org[0]) / ray.dir[0];
@@ -124,7 +130,7 @@ public:
 		tnearMax = std::max(tnearMax, tznear);
 		tfarMin = std::min(tfarMin, tzfar);
 
-		if(tnearMax < tfarMin){
+		if(tnearMax <= tfarMin){
 			t0 = tnearMax;
 			t1 = tfarMin;
 		}
