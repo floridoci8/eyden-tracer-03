@@ -93,18 +93,18 @@ public:
 		// partial reference: https://tavianator.com/fast-branchless-raybounding-box-intersections/
 		float tfarMin = -std::numeric_limits<float>::infinity();
 		float tnearMax = std::numeric_limits<float>::infinity();
-	
+		float txnear, tynear, tznear, txfar, tyfar, tzfar;
 		if(ray.dir[0] != 0){
-			float txnear = (m_min[0] - ray.org[0]) / ray.dir[0];
-			float txfar = (m_max[0] - ray.org[0]) / ray.dir[0];
+			txnear = (m_min[0] - ray.org[0]) / ray.dir[0];
+			txfar = (m_max[0] - ray.org[0]) / ray.dir[0];
 
 			if(ray.dir[0] < 0)
 				std::swap(txnear, txfar);
 		}
 
 		if(ray.dir[1] != 0){
-			float tynear = (m_min[1] - ray.org[1]) / ray.dir[1];
-			float tyfar = (m_max[1] - ray.org[1]) / ray.dir[1];
+			tynear = (m_min[1] - ray.org[1]) / ray.dir[1];
+			tyfar = (m_max[1] - ray.org[1]) / ray.dir[1];
 
 			if(ray.dir[1] < 0)
 				std::swap(tynear, tyfar);
@@ -114,8 +114,8 @@ public:
 		tfarMin = std::min(txfar, tyfar);
 
 		if(ray.dir[2] != 0){
-			float tznear = (m_min[2] - ray.org[2]) / ray.dir[2];
-			float tzfar = (m_max[2] - ray.org[2]) / ray.dir[2];
+			tznear = (m_min[2] - ray.org[2]) / ray.dir[2];
+			tzfar = (m_max[2] - ray.org[2]) / ray.dir[2];
 
 			if(ray.dir[2] < 0)
 				std::swap(tznear, tzfar);
